@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>EduGenie - AI Learning Assistant</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+            🎓 EduGenie
+        </div>
+
+        <p>
+            Google Gemini Powered Learning Assistant
+        </p>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <h1>
+            Learn Smarter with EduGenie
+        </h1>
+
+        <p>
+            Ask questions, summarize notes, generate quizzes
+            and learn difficult concepts with AI.
+        </p>
+
+    </section>
+
+
+    <!-- MAIN CARD -->
+
+    <section class="card">
+
+        <h2>
+            ✨ What do you want to learn?
+        </h2>
+
+
+        <form
+            action="/ask"
+            method="post"
+            onsubmit="showLoading()"
+        >
+
+            <textarea
+                id="question"
+                name="question"
+                rows="7"
+                placeholder="Enter your question, topic or study material..."
+                required
+            >{{ question }}</textarea>
+
+
+            <!-- MODE BUTTONS -->
+
+            <div class="mode-grid">
+
+                <button
+                    type="submit"
+                    name="mode"
+                    value="ask"
+                    class="mode-button"
+                    id="askButton"
+                >
+                    🤖 Ask AI
+                </button>
+
+
+                <button
+                    type="submit"
+                    name="mode"
+                    value="summary"
+                    class="mode-button"
+                >
+                    📝 Summarize
+                </button>
+
+
+                <button
+                    type="submit"
+                    name="mode"
+                    value="quiz"
+                    class="mode-button"
+                >
+                    ❓ Generate Quiz
+                </button>
+
+
+                <button
+                    type="submit"
+                    name="mode"
+                    value="explain"
+                    class="mode-button"
+                >
+                    💡 Simple Explain
+                </button>
+
+
+                <button
+                    type="submit"
+                    name="mode"
+                    value="recommend"
+                    class="mode-button"
+                >
+                    🎯 Learning Path
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- ANSWER -->
+
+    {% if answer %}
+
+    <section class="answer-card">
+
+        <div class="answer-title">
+            🤖 EduGenie Answer
+        </div>
+
+
+        <div
+            id="markdown-answer"
+            class="answer"
+        ></div>
+
+
+        <script
+            id="answer-data"
+            type="text/plain"
+        >{{ answer }}</script>
+
+    </section>
+
+    {% endif %}
+
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🤖
+            </div>
+
+            <h3>
+                AI Q&A
+            </h3>
+
+            <p>
+                Ask questions and get clear answers.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                📝
+            </div>
+
+            <h3>
+                Summarizer
+            </h3>
+
+            <p>
+                Convert long study material into short notes.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ❓
+            </div>
+
+            <h3>
+                Quiz Generator
+            </h3>
+
+            <p>
+                Generate practice MCQ questions.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                💡
+            </div>
+
+            <h3>
+                Simple Explanation
+            </h3>
+
+            <p>
+                Understand difficult concepts easily.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                🎯
+            </div>
+
+            <h3>
+                Learning Path
+            </h3>
+
+            <p>
+                Get personalized topics to learn next.
+            </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+                ☁️
+            </div>
+
+            <h3>
+                Gemini AI
+            </h3>
+
+            <p>
+                Powered by Google Gemini.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            EduGenie • Powered by Google Gemini
+        </p>
+
+    </footer>
+
+
+</div>
+
+
+<script>
+
+    const answerData =
+        document.getElementById("answer-data");
+
+    const markdownAnswer =
+        document.getElementById("markdown-answer");
+
+
+    if (answerData && markdownAnswer) {
+
+        const markdown =
+            answerData.textContent;
+
+        markdownAnswer.innerHTML =
+            marked.parse(markdown);
+
+    }
+
+
+    function showLoading() {
+
+        const buttons =
+            document.querySelectorAll(".mode-button");
+
+        buttons.forEach(function(button) {
+
+            button.disabled = true;
+
+        });
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
